@@ -48,6 +48,10 @@ public class enemigo extends Sprite implements Runnable {
         this.presx = presx;
     }
 
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
+    }
+
     @Override
     public void run() {
         for (;;) {

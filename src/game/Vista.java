@@ -72,10 +72,10 @@ public class Vista extends javax.swing.JFrame implements Drawable{
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Spacio fondo = new Spacio(0, 0, 640, 480);
+        Spacio fondo = new Spacio(0, 0, 820, 600);
         Vista vista = new Vista(fondo);
         fondo.setDrawable(vista);
-        vista.setSize(640, 480);
+        vista.setSize(820, 600);
         vista.setVisible(true);
     }
 

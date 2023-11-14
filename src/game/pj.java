@@ -4,8 +4,10 @@
  */
 package game;
 
+import static game.Sprite.loadImage;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 
 /**
@@ -20,14 +22,16 @@ public class pj extends Sprite implements Drawable{
     
     
 
-    public pj(int x, int y) {
+    public pj(int x, int y,int WIDTH,int HEIGHT) {
         super(x, y, WIDTH, HEIGHT);
     }
     
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.RED);
-        g.fillRect(x, y, width, height);
+        Image backgroundImage = loadImage("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\imagenes\\Firefly_dame_la_imagen_de_un_carro_tipo_juego_visto_desde_arriba_que_mire_hacia_atras_simple_17639-removebg-preview (1).png");
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, getX(), getY(), null);
+        }
     }
     
     public void setDrawable(Drawable drawable) {

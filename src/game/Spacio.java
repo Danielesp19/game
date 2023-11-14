@@ -16,13 +16,15 @@ public class Spacio extends Sprite {
     private Drawable drawable;         // Interfaz para redibujar
     private ArrayList<enemigo> enemy;  // Lista de enemigos
     private BufferedImage buffer;      // Búfer para el doble búfer
+    private boolean boostSpeed = false;
 
     // Constructor para inicializar el juego
     public Spacio(int x, int y, int width, int height) {
         super(x, y, width, height);
-        pj1 = new pj(width / 2, height - 90);  // Crear nave del jugador
+        pj1 = new pj(width / 2, height - 90,100,140);  // Crear nave del jugador
         enemy = new ArrayList<>();             // Inicializar lista de enemigos
         buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);  // Inicializar búfer
+        
     }
 
     // Método para dibujar la escena del juego
@@ -32,7 +34,7 @@ public class Spacio extends Sprite {
         Graphics bufferGraphics = buffer.getGraphics();
 
         // Dibujar en el búfer
-        Image backgroundImage = loadImage("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\imagenes\\fondo.jpg");
+        Image backgroundImage = loadImage("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\imagenes\\Captura de pantalla 2023-11-14 013046 (1).png");
         if (backgroundImage != null) {
             bufferGraphics.drawImage(backgroundImage, getX(), getY(), null);
         }
@@ -77,19 +79,43 @@ public class Spacio extends Sprite {
             // Iniciar el hilo para el nuevo enemigo
             Thread enemyThread = new Thread(en);
             enemyThread.start();
-
+        }
             
-        if(key == KeyEvent.VK_X){
-            for (enemigo m : enemy){
-                m.setPresx(true);
-            }// Verificar colisión con la nave del jugador
-        }else{
+        if (key == KeyEvent.VK_X && !boostSpeed) {
+        // Iniciar un hilo para controlar la velocidad mientras "X" está presionada
+            boostSpeed = true;  // Activar velocidad rápida al presionar la tecla "X"
+            actualizarVelocidadEnemigos();
+
+            Thread boostThread = new Thread(() -> {
+            while (boostSpeed) {
+                try {
+                    Thread.sleep(50);  // Puedes ajustar este valor según la velocidad deseada
+                    actualizarVelocidadEnemigos();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            });
+        
+
+            boostThread.start();
+            }
+        
+        }
+        public void handleKeyReleased(int key) {
+        if (key == KeyEvent.VK_X) {
             for (enemigo m : enemy) {
                 m.setPresx(false);
             }
+            boostSpeed = false;  // Desactivar velocidad rápida al soltar la tecla "X"
+            actualizarVelocidadEnemigos();
+            }
         }
-        
+        private void actualizarVelocidadEnemigos() {
+        for (enemigo m : enemy) {
+            m.setVelocidad(boostSpeed ? 6 : 1);  // Ajusta la velocidad según sea necesario
         }
-        
+
     }
 }
+

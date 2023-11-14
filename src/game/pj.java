@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
  *
  * @author Usuario
  */
-public class pj extends Sprite{
+public class pj extends Sprite implements Drawable{
     public static final int WIDTH = 50;
     public static final int HEIGHT = 50;
     public static final int STEP = 20;
@@ -41,6 +41,11 @@ public class pj extends Sprite{
         if(key == KeyEvent.VK_RIGHT)
             x += STEP;
         
+    }
+
+    @Override
+    public void redraw() {
+            drawable.redraw();
     }
     
 }

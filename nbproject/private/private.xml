@@ -4,9 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/Game/src/game/Vista.java</file>
-            <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/Game/src/game/Drawable.java</file>
-            <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/Game/src/game/Fondo.java</file>
-            <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/Game/src/game/Sprite.java</file>
+            <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/Game/src/game/Spacio.java</file>
+            <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/Game/src/game/enemigo.java</file>
         </group>
     </open-files>
 </project-private>

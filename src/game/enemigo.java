@@ -4,6 +4,7 @@
  */
 package game;
 
+import static game.Sprite.loadImage;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -13,6 +14,7 @@ import java.awt.Graphics;
  */
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 
 public class enemigo extends Sprite implements Runnable {
     private Drawable drawable;
@@ -29,14 +31,16 @@ public class enemigo extends Sprite implements Runnable {
     @Override
     public void draw(Graphics g) {
         if (dibujar) {
-            g.setColor(Color.BLUE);
-            g.fillRect(x, y, width, height);
+            Image backgroundImage = loadImage("C:\\Users\\Usuario\\Downloads\\Captura_de_pantalla_2023-11-30_112853-removebg-preview.png");
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, getX(), getY(), null);
+        }
         }
     }
 
     public void choque(pj cordenadaPJ) {
-        if (this.getX() < cordenadaPJ.getX() + cordenadaPJ.getWidth() &&
-            this.getX() + this.getWidth() > cordenadaPJ.getX() &&
+        if (this.getX()+-10 < cordenadaPJ.getX() + cordenadaPJ.getWidth() &&
+            this.getX()+10 + this.getWidth() > cordenadaPJ.getX() &&
             this.getY() < cordenadaPJ.getY() + cordenadaPJ.getHeight() &&
             this.getY() + this.getHeight() > cordenadaPJ.getY()) {
             // Se produjo una colisión, marca que no se debe dibujar

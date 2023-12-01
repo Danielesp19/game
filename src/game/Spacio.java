@@ -4,6 +4,7 @@
  */
 package game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -17,11 +18,13 @@ public class Spacio extends Sprite {
     private ArrayList<enemigo> enemy;  // Lista de enemigos
     private BufferedImage buffer;      // Búfer para el doble búfer
     private boolean boostSpeed = false;
+    
+    
 
     // Constructor para inicializar el juego
     public Spacio(int x, int y, int width, int height) {
         super(x, y, width, height);
-        pj1 = new pj(width / 2, height - 90,100,140);  // Crear nave del jugador
+        pj1 = new pj(width / 2, height - 90,30,140);  // Crear nave del jugador
         enemy = new ArrayList<>();             // Inicializar lista de enemigos
         buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);  // Inicializar búfer
         
@@ -34,10 +37,21 @@ public class Spacio extends Sprite {
         Graphics bufferGraphics = buffer.getGraphics();
 
         // Dibujar en el búfer
-        Image backgroundImage = loadImage("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\imagenes\\Captura de pantalla 2023-11-14 013046 (1).png");
-        if (backgroundImage != null) {
-            bufferGraphics.drawImage(backgroundImage, getX(), getY(), null);
-        }
+        bufferGraphics.setColor(Color.GREEN);
+        bufferGraphics.fillRect(0, 0, this.width, this.height);
+
+        // Dibujar la pista de carreras
+        bufferGraphics.setColor(Color.BLACK);
+        bufferGraphics.fillRect( 160, 0, (this.width-320),this.height);
+        
+
+        // Dibujar carriles
+        bufferGraphics.setColor(Color.WHITE);
+        
+        bufferGraphics.fillRect(140, 0, 20, this.height);
+        bufferGraphics.fillRect(this.width-160, 0, 20, this.height);
+        
+        
 
         // Dibujar la nave del jugador en el búfer
         pj1.draw(bufferGraphics);
@@ -67,13 +81,16 @@ public class Spacio extends Sprite {
     public void handleKey(int key) {
         // Mover la nave del jugador cuando se presiona izquierda o derecha
         if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT) {
-            pj1.move(key);
+            pj1.direc(key);
+            pj1.star();
         }
         
         // Agregar un nuevo enemigo cuando se presiona la tecla "D"
         if (key == KeyEvent.VK_D) {
-            int coordenadaX = (int) (Math.random() * 500);
-            enemigo en = new enemigo(coordenadaX, 20, 50, 50, 1);  // Crear nuevo enemigo
+            int coordenadaX = (int) (Math.random() * 4)+1;
+            
+            enemigo en = new enemigo(80+(coordenadaX*125), 20, 20, 40, 1);  // Crear nuevo enemigo
+            
             enemy.add(en);  // Agregar enemigo a la lista
 
             // Iniciar el hilo para el nuevo enemigo

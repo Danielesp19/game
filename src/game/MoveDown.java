@@ -8,15 +8,17 @@ package game;
  *
  * @author Usuario
  */
-public class MoveDecor implements Runnable{
-    Sprite objec;
+public class MoveDown extends Thread{
+    public Sprite objec;
     boolean presx;
     int velocidad;
     
     
-    public MoveDecor(Sprite Objec) {
-        this.objec = Objec;
+    public MoveDown(Sprite Ob, int vel) {
+        this.objec = Ob;
+        this.velocidad=vel;
     }
+
     
     public void setPresx(boolean presx) {
         this.presx = presx;
@@ -33,11 +35,11 @@ public class MoveDecor implements Runnable{
                         // Mover hacia abajo con velocidad normal
                         objec.setY(objec.getY() + velocidad);
                     }
-                    Thread.sleep(10);
+                    Thread.sleep(velocidad);
                 } else {
                     // Mover hacia abajo más rápido si la tecla "X" está presionada
                     objec.setY(objec.getY() + velocidad);
-                    Thread.sleep(4);
+                    Thread.sleep(velocidad*2);
                 }
             } catch (InterruptedException e) {
                 System.out.println("Error: " + e);

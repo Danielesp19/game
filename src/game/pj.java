@@ -19,7 +19,7 @@ public class pj extends Sprite implements Drawable{
     public static final int HEIGHT = 50;
     public static final int STEP = 20;
     private Drawable drawable;
-    private int direccion=0;
+    
     public Thread m;
     
 

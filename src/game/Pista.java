@@ -97,8 +97,7 @@ public class Pista extends Sprite {
             enemy.add(en);  // Agregar enemigo a la lista
 
             // Iniciar el hilo para el nuevo enemigo
-            Thread enemyThread = new Thread(en);
-            enemyThread.start();
+            
         }
             
         if (key == KeyEvent.VK_X && !boostSpeed) {

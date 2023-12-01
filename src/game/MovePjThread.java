@@ -12,13 +12,13 @@ import javax.swing.SwingUtilities;
  * @author Usuario
  */
 public class MovePjThread extends Thread {
-    private pj p;
+    private Sprite p;
     private int direccion;
     private static final int STEEP = 2;
     int cont = 0;
     int cont2=0;
 
-    public MovePjThread(pj pm, int direc) {
+    public MovePjThread(Sprite pm, int direc) {
         this.p = pm;
         this.direccion = direc;
     }

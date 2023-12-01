@@ -16,16 +16,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
-public class enemigo extends Sprite implements Runnable {
+public class enemigo extends Sprite  {
     private Drawable drawable;
     private int velocidad; // Nueva variable para controlar la velocidad
     private boolean dibujar; // Nuevo indicador para saber si debe dibujarse
     private boolean presx=false;
+    public Thread m;
 
     public enemigo(int x, int y, int width, int height, int velocidad) {
         super(x, y, width, height);
         this.velocidad = velocidad;
         this.dibujar = true; // Por defecto, se debe dibujar
+        m=new MoveDown(this, velocidad);
+        m.start();
+        
+        
     }
 
     @Override
@@ -55,28 +60,11 @@ public class enemigo extends Sprite implements Runnable {
 
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
+        
     }
-
-    @Override
-    public void run() {
-        for (;;) {
-            try {
-                if (!presx) {
-                    synchronized (this) {
-                        // Mover hacia abajo con velocidad normal
-                        this.setY(this.getY() + velocidad);
-                    }
-                    Thread.sleep(10);
-                } else {
-                    // Mover hacia abajo más rápido si la tecla "X" está presionada
-                    this.setY(this.getY() + velocidad);
-                    Thread.sleep(1);
-                }
-            } catch (InterruptedException e) {
-                System.out.println("Error: " + e);
-            }
-        }
-    }
+    
+    
+    
 }
     
 

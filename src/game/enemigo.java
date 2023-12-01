@@ -38,14 +38,15 @@ public class enemigo extends Sprite implements Runnable {
         }
     }
 
-    public void choque(pj cordenadaPJ) {
+    public boolean choque(pj cordenadaPJ) {
         if (this.getX()+-10 < cordenadaPJ.getX() + cordenadaPJ.getWidth() &&
             this.getX()+10 + this.getWidth() > cordenadaPJ.getX() &&
             this.getY() < cordenadaPJ.getY() + cordenadaPJ.getHeight() &&
             this.getY() + this.getHeight() > cordenadaPJ.getY()) {
             // Se produjo una colisión, marca que no se debe dibujar
-            dibujar = false;
+            return true;
         }
+        return false;
     }
 
     public void setPresx(boolean presx) {

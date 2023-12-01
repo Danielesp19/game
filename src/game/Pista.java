@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 // Clase principal para la lógica del juego
-public class Spacio extends Sprite {
+public class Pista extends Sprite {
     private final pj pj1;             // Nave del jugador
     private Drawable drawable;         // Interfaz para redibujar
     private ArrayList<enemigo> enemy;  // Lista de enemigos
@@ -20,9 +20,9 @@ public class Spacio extends Sprite {
     private boolean boostSpeed = false;
     
     
-
+            
     // Constructor para inicializar el juego
-    public Spacio(int x, int y, int width, int height) {
+    public Pista(int x, int y, int width, int height) {
         super(x, y, width, height);
         pj1 = new pj(width / 2, height - 90,30,140);  // Crear nave del jugador
         enemy = new ArrayList<>();             // Inicializar lista de enemigos
@@ -59,7 +59,10 @@ public class Spacio extends Sprite {
         // Iterar sobre la lista de enemigos para dibujarlos en el búfer y verificar colisiones
         for (enemigo m : enemy) {
             m.draw(bufferGraphics);  // Dibujar enemigo
-            m.choque(pj1);          // Verificar colisión con la nave del jugador
+            if (m.choque(pj1)){
+                
+                enemy.remove(m);          // Verificar colisión con la nave del jugador
+            }
         }
 
         // Copiar el contenido del búfer al área visible
@@ -82,7 +85,7 @@ public class Spacio extends Sprite {
         // Mover la nave del jugador cuando se presiona izquierda o derecha
         if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT) {
             pj1.direc(key);
-            pj1.star();
+            
         }
         
         // Agregar un nuevo enemigo cuando se presiona la tecla "D"

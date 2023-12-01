@@ -20,11 +20,12 @@ public class pj extends Sprite implements Drawable{
     public static final int STEP = 20;
     private Drawable drawable;
     private int direccion=0;
-    
+    public Thread m;
     
 
     public pj(int x, int y,int WIDTH,int HEIGHT) {
         super(x, y, WIDTH, HEIGHT);
+        m = new MovePjThread(this,0);
     }
     
     @Override
@@ -40,8 +41,6 @@ public class pj extends Sprite implements Drawable{
         
     }
    
-    
-
     @Override
     public void redraw() {
             drawable.redraw();
@@ -49,25 +48,19 @@ public class pj extends Sprite implements Drawable{
 
     public void direc(int key) {
         if(key == KeyEvent.VK_LEFT){
-            this.direccion=1;
+            m.stop();
+            m = new MovePjThread(this,1);
+            m.start();
         }
         if(key== KeyEvent.VK_RIGHT){
-            this.direccion=2;
+            m.stop();
+            m = new MovePjThread(this,2);
+            m.start();
         }
         }
 
     
-    public void star() {
-        if(direccion==1){
-            Thread m = new MoveThread(this,1);
-            m.start();
-        }
-        if(direccion==2){
-            Thread m = new MoveThread(this,2);
-            m.start();
-        }
-        
-    }
+    
         
     } 
     

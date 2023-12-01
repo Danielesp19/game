@@ -13,13 +13,13 @@ import java.awt.event.KeyEvent;
  */
 public class Vista extends javax.swing.JFrame implements Drawable{
 
-    private Spacio fondojuego;
+    private Pista fondojuego;
     
     /**
      * Creates new form VentanaPrincipal
      * @param fondojuego
      */
-    public Vista(Spacio fondojuego) {
+    public Vista(Pista fondojuego) {
         initComponents();
         this.fondojuego = fondojuego;
     }
@@ -72,7 +72,7 @@ public class Vista extends javax.swing.JFrame implements Drawable{
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Spacio fondo = new Spacio(0, 0, 820, 600);
+        Pista fondo = new Pista(0, 0, 820, 600);
         Vista vista = new Vista(fondo);
         fondo.setDrawable(vista);
         vista.setSize(820, 600);

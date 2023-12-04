@@ -2,10 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package game.enemigos;
+package game;
 
-import game.Sprite;
-import game.pj;
 import static game.Sprite.loadImage;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,39 +13,29 @@ import java.awt.Image;
  *
  * @author Usuario
  */
-public class Carro1 extends enemy {
-    private int velocidad;
-    private boolean dibujar;
-    private boolean presx = false;
-    private Thread m;
-    public static int width = 30;
+public class Casa extends Sprite{
+    
+    public static int width = 60;
     public static int height = 20;
+    Thread m;
 
-    public Carro1(int x, int y) {
+    public Casa(int x, int y) {
         super(x, y, width, height);
-        this.dibujar = true;
-        m = new MoveDown(this, 8);
+        m=new MoveDecor(this);
         m.start();
     }
 
+    
+
     @Override
     public void draw(Graphics g) {
-        if (dibujar) {
-            Image backgroundImage = loadImage("C:\\Users\\Usuario\\Downloads\\Captura_de_pantalla_2023-11-30_112853-removebg-preview.png");
+       // Configura el color
+       Image backgroundImage = loadImage("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\imagenes\\183437938-house-facade-pixelated-style-icon__1_-removebg-preview (1).png");
             if (backgroundImage != null) {
                 g.drawImage(backgroundImage, getX(), getY(), null);
             }
-        }
+        
     }
-
-    @Override
-    public void stop() {
-        m.stop();
-    }
-    
-    
-    
-    
     
 }
 

@@ -18,9 +18,18 @@ public class pj extends Sprite implements Drawable{
     public static final int WIDTH = 30;
     public static final int HEIGHT = 30;
     public static final int STEP = 20;
+    public int vida=3;
     private Drawable drawable;
     
     public Thread m;
+
+    public int getVida() {
+        return vida;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
     
 
     public pj(int x, int y,int WIDTH,int HEIGHT) {
@@ -34,6 +43,20 @@ public class pj extends Sprite implements Drawable{
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, getX(), getY(), null);
         }
+        
+        if (this.vida==3) {
+            Image vidas= loadImage("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\imagenes\\3vidas_1.png");
+            g.drawImage(vidas, 10, 30, null);
+        }
+        if (this.vida==2) {
+            Image vidas= loadImage("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\imagenes\\2vidas.png");
+            g.drawImage(vidas, 10, 30, null);
+        }
+        if (this.vida==1) {
+            Image vidas= loadImage("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\imagenes\\1vida.png");
+            g.drawImage(vidas, 10, 30, null);
+        }
+        
     }
     
     public void setDrawable(Drawable drawable) {

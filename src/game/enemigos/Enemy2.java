@@ -13,7 +13,7 @@ import java.awt.Image;
  *
  * @author Usuario
  */
-public class Enemy2 extends Sprite implements Runnable{
+public class Enemy2 extends enemy implements Runnable{
     public static int width=50;
     public static int height=50;
     
@@ -55,6 +55,11 @@ public class Enemy2 extends Sprite implements Runnable{
             System.out.println("Error: " + e);
         }
     }
+    }
+
+    @Override
+    public void stop() {
+        
     }
     
 }

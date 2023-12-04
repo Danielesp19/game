@@ -38,5 +38,10 @@ public class Carro4 extends enemy{
         
     }
 
+    @Override
+    public void stop() {
+    m.stop();    
+    }
+
     
 }

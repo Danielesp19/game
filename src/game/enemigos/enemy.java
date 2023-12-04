@@ -37,6 +37,7 @@ public abstract class enemy extends Sprite{
     @Override
     public abstract void draw(Graphics g);
     
+    public abstract void stop();
 
     public void setPresx(boolean presx) {
         this.presx = presx;

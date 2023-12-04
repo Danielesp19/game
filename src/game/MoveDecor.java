@@ -26,7 +26,7 @@ public class MoveDecor extends Thread{
                 
                 else {
                         // Mover hacia abajo más rápido si la tecla "X" está presionada
-                    decor.setY(0);
+                    decor.setY(-50);
                 }
                 Thread.sleep(7);
             } catch (InterruptedException e) {

@@ -23,7 +23,7 @@ public class Carro2 extends enemy{
     public Carro2(int x, int y) {
         super(x, y, width, height);
         this.dibujar = true;
-        m = new MoveDown(this, 4);
+        m = new MoveDown(this, 10);
         m.start();
     }
 
@@ -35,6 +35,11 @@ public class Carro2 extends enemy{
                 g.drawImage(backgroundImage, getX(), getY(), null);
             }
         }
+    }
+
+    @Override
+    public void stop() {
+        m.stop();
     }
     
 

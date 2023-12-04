@@ -21,12 +21,16 @@ public class Vista extends javax.swing.JFrame implements Drawable{
      */
     public Vista(Pista fondojuego) {
         initComponents();
+        
         this.fondojuego = fondojuego;
+        Thread m=new Thread(this.fondojuego);
+        m.start();
     }
     
     @Override
     public void paint(Graphics g)
     {
+        
         fondojuego.draw(g);
     }
     

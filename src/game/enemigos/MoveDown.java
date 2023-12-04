@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package game;
+package game.enemigos;
+
+import game.Sprite;
 
 /**
  *
@@ -25,21 +27,26 @@ public class MoveDown extends Thread{
     }
     
     @Override
-    public void run() {
-        for (;;) {
+    public void run()
+    {
+        boolean bandera=true;
+        while (bandera) {
             try {
-                
-                if (!presx) {
-                    synchronized (this) {
-                        
-                        // Mover hacia abajo con velocidad normal
-                        objec.setY(objec.getY() + velocidad);
+                if(objec.getY()<800){
+                    if (!presx ) {
+                        synchronized (this) {
+
+                            // Mover hacia abajo con velocidad normal
+                            objec.setY(objec.getY() + 2);
+                        }
+                        Thread.sleep(velocidad);
+                    } else {
+                        // Mover hacia abajo más rápido si la tecla "X" está presionada
+                        objec.setY(objec.getY() + 2);
+                        Thread.sleep(velocidad);
                     }
-                    Thread.sleep(velocidad);
-                } else {
-                    // Mover hacia abajo más rápido si la tecla "X" está presionada
-                    objec.setY(objec.getY() + velocidad);
-                    Thread.sleep(velocidad*2);
+                }else{
+                    bandera=false;
                 }
             } catch (InterruptedException e) {
                 System.out.println("Error: " + e);

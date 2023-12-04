@@ -15,8 +15,8 @@ import java.awt.event.KeyEvent;
  * @author Usuario
  */
 public class pj extends Sprite implements Drawable{
-    public static final int WIDTH = 50;
-    public static final int HEIGHT = 50;
+    public static final int WIDTH = 30;
+    public static final int HEIGHT = 30;
     public static final int STEP = 20;
     private Drawable drawable;
     

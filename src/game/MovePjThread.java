@@ -18,7 +18,7 @@ public class MovePjThread extends Thread {
     int cont = 0;
     int cont2=0;
 
-    public MovePjThread(Sprite pm, int direc) {
+    public MovePjThread(pj pm, int direc) {
         this.p = pm;
         this.direccion = direc;
     }

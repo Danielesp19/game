@@ -2,18 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package game;
+package visual;
 
+import game.Drawable;
+import game.Pista;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
-public class Vista extends javax.swing.JFrame implements Drawable{
+public class Vista extends javax.swing.JFrame implements Drawable,Runnable{
 
     private Pista fondojuego;
+    private String nombre;
     
     /**
      * Creates new form VentanaPrincipal
@@ -21,10 +25,11 @@ public class Vista extends javax.swing.JFrame implements Drawable{
      */
     public Vista(Pista fondojuego) {
         initComponents();
-        
+        this.nombre=JOptionPane.showInputDialog("nombre");
         this.fondojuego = fondojuego;
-        Thread m=new Thread(this.fondojuego);
+        Thread m = new Thread(this.fondojuego);
         m.start();
+        
     }
     
     @Override
@@ -70,22 +75,37 @@ public class Vista extends javax.swing.JFrame implements Drawable{
         if(evt.getKeyCode()== KeyEvent.VK_0)
             System.exit(0);
         fondojuego.handleKey(evt.getKeyCode());
+        
     }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         Pista fondo = new Pista(0, 0, 820, 600);
         Vista vista = new Vista(fondo);
         fondo.setDrawable(vista);
         vista.setSize(820, 600);
         vista.setVisible(true);
+        Thread m=new Thread(vista);
+        m.start();
+        
     }
 
     @Override
     public void redraw() {
         repaint();
+    }
+
+    @Override
+    public void run() {
+        while(true){
+            if(fondojuego.check()){
+                System.out.println("holl");
+                //JOptionPane.showMessageDialog(this, "¡Juego terminado! Puntuación: " + fondojuego.getPuntos());
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

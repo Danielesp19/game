@@ -5,31 +5,43 @@
  */
 package game.enemigos;
 
-import game.Drawable;
-import game.Sprite;
+import visual.Drawable;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.LinkedList;
+
 
 /**
- *
- * @author juancamposbetancourth
+ * Subclase de enemy.
+ * simula un proyectil lanzado por la clase helicoptero.
+ * @author  Daniel Espitia
+ * @version 05122023
  */
 public class Proyectil extends enemy implements  Drawable{
+    /**
+     * Imagen del proyectil.
+     */
     private Image image = loadImage("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\imagenes\\Proyectil.png");
-    public static final int WIDTH = 17;
-    public static final int HEIGHT = 32;
+    /**
+     * instancia del panel drawable.
+     */
     private Drawable drawable;
     
-    
+    /**
+     * 
+     * @param x posicion en el eje x
+     * @param y posicion en el eje y
+     */
     public Proyectil(int x, int y) {
-        super(x, y, WIDTH, HEIGHT);
+        super(x, y, 17, 32);
         Thread move = new MoveDown(this,18);
         move.start();
     }
     
 
-   
+   /**
+     * Dibuja el carro enemigo.
+     * @param g Objeto Graphics para dibujar el carro.
+     */
     @Override
     public void draw(Graphics g) {
         if(image != null){
@@ -38,7 +50,9 @@ public class Proyectil extends enemy implements  Drawable{
     }
 
     
-
+    /**
+     * Redibuja el proyectil.
+     */
     @Override
     public void redraw() {
         drawable.redraw();
@@ -50,7 +64,10 @@ public class Proyectil extends enemy implements  Drawable{
     public void setDrawable(Drawable drawable) {
         this.drawable = drawable;
     }
-
+    
+    /**
+     * Detiene el movimiento del helicoptero.
+     */
     @Override
     public void stop() {
     }

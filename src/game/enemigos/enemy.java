@@ -5,25 +5,31 @@
 package game.enemigos;
 
 import game.Sprite;
-import game.pj;
+import game.Personaje;
 import java.awt.Graphics;
 
 /**
- *
- * @author Usuario
+ * Subclase de Sprite.
+ * clase abstracta que define si un objeto es un enemigo.
+ * @author  Daniel Espitia
+ * @version 05122023
  */
 public abstract class enemy extends Sprite{
-    private int velocidad;
-    private boolean dibujar;
-    private boolean presx = false;
-    private Thread m;
     
-    
+    /**
+     * @param x posicion en x
+     * @param y posicion en y
+     * @param width anchor de la franja
+     * @param height altura de la fanja
+     */
     public enemy(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
     
-    public boolean choque(pj coordenadaPJ) {
+    /**
+     * verifica si la posicion del personaje colisiono con la de un enemigo.
+     */
+    public boolean choque(Personaje coordenadaPJ) {
         if (this.getX()  < coordenadaPJ.getX() + coordenadaPJ.getWidth() &&
             this.getX()  + this.getWidth() > coordenadaPJ.getX() &&
             this.getY()+70 < coordenadaPJ.getY() + coordenadaPJ.getHeight() &&
@@ -33,17 +39,19 @@ public abstract class enemy extends Sprite{
         }
         return false;
     }
-
+    
+    /**
+     * Dibuja el helicoptero enemigo.
+     * @param g Objeto Graphics para dibujar el carro.
+     */
     @Override
     public abstract void draw(Graphics g);
     
+    /**
+     * detiene el hilo dle enemigo.
+     */
     public abstract void stop();
 
-    public void setPresx(boolean presx) {
-        this.presx = presx;
-    }
+    
 
-    public void setVelocidad(int velocidad) {
-        this.velocidad = velocidad;
-    }
 }

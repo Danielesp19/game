@@ -5,31 +5,44 @@
 package game.enemigos;
 
 import game.Sprite;
-import game.pj;
+import game.Personaje;
 import static game.Sprite.loadImage;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
 /**
- *
- * @author Usuario
+ * Subclase de Sprite.
+ * simula un auto enemigo que obstaculiza el paso.
+ * @author  Daniel Espitia
+ * @version 05122023
  */
 public class Carro1 extends enemy {
-    private int velocidad;
+    /**
+     * Bandera que permite dibujar el carro.
+     */
     private boolean dibujar;
-    private boolean presx = false;
+    /**
+     * Hilo que controla el movimiento del carro.
+     */
     private Thread m;
-    public static int width = 30;
-    public static int height = 20;
-
+    
+    /**
+     * constructor de la clase carro tipo 1
+     * @param x posicion en el eje x.
+     * @param y posicion en el eje y.
+     */
     public Carro1(int x, int y) {
-        super(x, y, width, height);
+        super(x, y, 30, 20);
         this.dibujar = true;
         m = new MoveDown(this, 8);
         m.start();
     }
-
+    
+    /**
+     * Dibuja el carro enemigo.
+     * @param g Objeto Graphics para dibujar el carro.
+     */
     @Override
     public void draw(Graphics g) {
         if (dibujar) {
@@ -39,7 +52,10 @@ public class Carro1 extends enemy {
             }
         }
     }
-
+    
+    /**
+     * Detiene el movimiento del carro.
+     */
     @Override
     public void stop() {
         m.stop();

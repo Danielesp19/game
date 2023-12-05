@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package game;
+package game.Decoracion;
+
+import game.Sprite;
 
 /**
  *
  * @author Usuario
  */
-public class MoveDecor extends Thread{
+public class HiloDecoracion extends Thread{
     Sprite decor;
 
-    public MoveDecor(Sprite decor) {
+    public HiloDecoracion(Sprite decor) {
         this.decor = decor;
     }
     

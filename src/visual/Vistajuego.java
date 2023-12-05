@@ -4,28 +4,33 @@
  */
 package visual;
 
-import game.Drawable;
 import game.Pista;
+import imagenes.PlaySound;
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author Usuario
  */
-public class Vista extends javax.swing.JFrame implements Drawable,Runnable{
+public class Vistajuego extends javax.swing.JFrame implements Drawable,Runnable{
 
     private Pista fondojuego;
     private String nombre;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     
     /**
      * Creates new form VentanaPrincipal
      * @param fondojuego
      */
-    public Vista(Pista fondojuego) {
+    public Vistajuego(Pista fondojuego) {
         initComponents();
-        this.nombre=JOptionPane.showInputDialog("nombre");
         this.fondojuego = fondojuego;
         Thread m = new Thread(this.fondojuego);
         m.start();
@@ -81,17 +86,7 @@ public class Vista extends javax.swing.JFrame implements Drawable,Runnable{
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        
-        Pista fondo = new Pista(0, 0, 820, 600);
-        Vista vista = new Vista(fondo);
-        fondo.setDrawable(vista);
-        vista.setSize(820, 600);
-        vista.setVisible(true);
-        Thread m=new Thread(vista);
-        m.start();
-        
-    }
+    
 
     @Override
     public void redraw() {
@@ -101,6 +96,8 @@ public class Vista extends javax.swing.JFrame implements Drawable,Runnable{
     @Override
     public void run() {
         while(true){
+            
+            
             if(fondojuego.check()){
                 System.out.println("holl");
                 //JOptionPane.showMessageDialog(this, "¡Juego terminado! Puntuación: " + fondojuego.getPuntos());

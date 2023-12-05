@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package game;
-
+import visual.Drawable;
+import game.Decoracion.Arbusto;
+import game.Decoracion.Casa;
+import game.Decoracion.Franja;
 import Text.ReadFile;
 import static Text.ReadFile.readAndParseFile;
 import game.enemigos.Carro1;
@@ -20,33 +23,51 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
-
+/**
+ * Clase que representa la pista de carreras en el juego, subclase de Sprite e implementa la interfaz Runnable.
+ * Controla la lógica del juego, incluyendo la creación y movimiento de enemigos, decoraciones y el personaje del jugador.
+ * @author  Daniel Espitia
+ * @version 05122023
+ */
 public class Pista extends Sprite implements Runnable{
-    private final pj pj1;             // Nave del jugador
-    private Drawable drawable;         // Interfaz para redibujar
-    private BufferedImage buffer;      // Búfer para el doble búfer
-    private boolean boostSpeed = false;
+    // Personaje del jugador
+    private final Personaje pj1;             
+    // Interfaz para redibujar
+    private Drawable drawable;         
+    // Búfer para el doble búfer
+    private BufferedImage buffer;  
+    // Listas para almacenar enemigos, decoraciones y helicópteros
     private CopyOnWriteArrayList<enemy> enemy;
     private ArrayList<Sprite> decoraciones;
-    private Timer enemyTimer;
-    private int currentRow = 0;
-    private int puntos=0;
     private CopyOnWriteArrayList<Helicoptero> Enemy2;
+    // Temporizador para agregar enemigos cada segundo
+    private Timer enemyTimer;
+    // Índice de la fila actual de enemigos
+    private int currentRow = 0;
+    // Puntuación del jugador
+    private int puntos=0;
+    
 
-    // Constructor para inicializar el juego
+    /**
+     * Constructor de pista para inicializar el juego.
+     * @param x Coordenada x inicial de la pista.
+     * @param y Coordenada y inicial de la pista.
+     * @param width Ancho de la pista.
+     * @param height Altura de la pista.
+     */
     public Pista(int x, int y, int width, int height) {
         super(x, y, width, height);
-        pj1 = new pj(width / 2, height - 90,30,140);  // Crear nave del jugador
-        enemy = new CopyOnWriteArrayList<>();             // Inicializar lista de enemigos
+        // Crear carro del jugador
+        pj1 = new Personaje(width / 2, height - 90,30,140);
+        // Inicializar listas y bufer
+        enemy = new CopyOnWriteArrayList<>();             
         buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);  // Inicializar búfer
         decoraciones=new ArrayList<>();
         Enemy2=new CopyOnWriteArrayList<>();
         
-
+        //Decoracio
         for(int i=1;i<=3;i++){
             Franja f=new Franja(155+(130*i), 120, 15, 50);
             decoraciones.add(f);
@@ -78,7 +99,12 @@ public class Pista extends Sprite implements Runnable{
         });
         enemyTimer.start();  // Iniciar el temporizador
     }
-    // Método para dibujar la escena del juego
+    
+    /**
+     * Método para dibujar la escena del juego.
+     *
+     * @param g Objeto Graphics utilizado para dibujar.
+     */
     @Override
     public void draw(Graphics g) {
         // Crear un nuevo contexto gráfico para el búfer
@@ -119,15 +145,9 @@ public class Pista extends Sprite implements Runnable{
         drawable.redraw();
     }
 
-    // Método para establecer la interfaz para redibujar la escena
-    public void setDrawable(Drawable drawable) {
-        this.drawable = drawable;
-    }
-
-    public int getPuntos() {
-        return puntos;
-    }
-
+    /**
+     * Método para agregar una nueva fila de enemigos.
+     */
     private void addEnemyRow() {
         ReadFile reader = new ReadFile();
         String filePath = "C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Game\\src\\Text\\Enemigos.txt";
@@ -135,7 +155,6 @@ public class Pista extends Sprite implements Runnable{
         // Llamamos al método para leer y parsear el archivo
         int[][] result = readAndParseFile(filePath);
 
-        // Imprimimos la matriz resultante
         if (result != null && currentRow < result.length) {
             int[] row = result[currentRow];
             for (int j = 0; j < row.length; j++) {
@@ -152,7 +171,14 @@ public class Pista extends Sprite implements Runnable{
             }
         }
     }
-
+    
+    /**
+     * Método para crear un nuevo enemigo según el tipo y la posición.
+     *
+     * @param type Tipo de enemigo.
+     * @param index Índice de la fila de enemigos.
+     * @return El objeto enemy creado.
+     */
     private enemy createEnemy(int type, int index) {
         int x = 80 + ((1 + index) * 125);
         switch (type) {
@@ -173,6 +199,22 @@ public class Pista extends Sprite implements Runnable{
                 return null;
         }        
     }
+    
+    /**
+     * Método para verificar si el jugador ha perdido todas sus vidas y reiniciar el juego si es necesario.
+     *
+     * @return True si el jugador ha perdido todas sus vidas, false de lo contrario.
+     */
+    public boolean check(){
+        if (pj1.getVida()==0){
+            reiniciarJuego();
+            return true;
+        }
+        else{
+            return false;
+        }   
+        
+    }
 
     // Método para manejar eventos del teclado
     public void handleKey(int key) {
@@ -183,6 +225,10 @@ public class Pista extends Sprite implements Runnable{
         // Agregar un nuevo enemigo cuando se presiona la tecla "D"
 
     }
+    
+    /**
+     * Método para reiniciar el juego.
+     */
     public void reiniciarJuego() {
     // Reinicializa las variables de juego, vidas, enemigos, etc.
         pj1.setVida(3);  // Ajusta el número de vidas según tu lógica
@@ -191,12 +237,15 @@ public class Pista extends Sprite implements Runnable{
         currentRow = 0;   // Reinicia la fila actual de enemigos
         // Otras inicializaciones necesarias para reiniciar el juego
     }
-
+    
+    /**
+     * Método que se ejecuta en el hilo para manejar la lógica del juego.
+     */
     @Override
     public void run() {
     while(true){
         for (enemy m : enemy) {
-              // Dibujar enemigo
+             
             if (m.choque(pj1)){
                 enemy.remove(m);
                 pj1.setVida(pj1.getVida()-1);          // Verificar colisión con la nave del jugador
@@ -219,16 +268,16 @@ public class Pista extends Sprite implements Runnable{
         drawable.redraw();
         }
     }
-    public boolean check(){
-        if (pj1.getVida()==0){
-            reiniciarJuego();
-            return true;
-        }
-        else{
-            return false;
-        }   
-        
+    
+    // Método para establecer la interfaz para redibujar la escena
+    public void setDrawable(Drawable drawable) {
+        this.drawable = drawable;
     }
+
+    public int getPuntos() {
+        return puntos;
+    }
+    
 
     
 

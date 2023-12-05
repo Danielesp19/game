@@ -40,14 +40,7 @@ public abstract class Sprite {
         }
         return image;
     }
-    public boolean checkCollision (Sprite sprite) {
-        if(this.getX() < sprite.getX() + sprite.getWidth() &&
-           this.getX() + this.getWidth() > sprite.getX() &&
-           this.getY() < sprite.getY() + sprite.getHeight() &&
-           this.getY() + this.getHeight() > sprite.getY())
-            return true;
-        return false;
-    }
+    
     
     public abstract void draw(Graphics g);
 

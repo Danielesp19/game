@@ -9,24 +9,37 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 /**
- *
- * @author Usuario
+ * Subclase de Sprite.
+ * simula un auto enemigo que obstaculiza el paso.
+ * @author  Daniel Espitia
+ * @version 05122023
  */
 public class Carro2 extends enemy{
-    private int velocidad;
+    /**
+     * Bandera que permite dibujar el carro.
+     */
     private boolean dibujar;
-    private boolean presx = false;
+    /**
+     * Hilo que controla el movimiento del carro.
+     */
     private Thread m;
-    public static int width = 10;
-    public static int height = 45;
-
+    
+    /**
+     * constructor de la clase carro tipo 2
+     * @param x posicion en el eje x.
+     * @param y posicion en el eje y.
+     */
     public Carro2(int x, int y) {
-        super(x, y, width, height);
+        super(x, y, 10, 45);
         this.dibujar = true;
         m = new MoveDown(this, 10);
         m.start();
     }
-
+    
+    /**
+     * Dibuja el carro enemigo.
+     * @param g Objeto Graphics para dibujar el carro.
+     */
     @Override
     public void draw(Graphics g) {
         if (dibujar) {
@@ -36,7 +49,10 @@ public class Carro2 extends enemy{
             }
         }
     }
-
+    
+    /**
+     * Detiene el movimiento del carro.
+     */
     @Override
     public void stop() {
         m.stop();

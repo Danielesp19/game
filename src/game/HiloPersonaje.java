@@ -11,14 +11,14 @@ import javax.swing.SwingUtilities;
  *
  * @author Usuario
  */
-public class MovePjThread extends Thread {
+public class HiloPersonaje extends Thread {
     private Sprite p;
     private int direccion;
     private static final int STEEP = 2;
     int cont = 0;
     int cont2=0;
 
-    public MovePjThread(pj pm, int direc) {
+    public HiloPersonaje(Personaje pm, int direc) {
         this.p = pm;
         this.direccion = direc;
     }
